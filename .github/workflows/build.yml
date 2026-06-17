@@ -76,5 +76,4 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add .
           git commit --amend -m "Deploy HTVP Build $GITHUB_SHA" || git commit -m "Deploy HTVP Build $GITHUB_SHA"
-          # FIX: Tell Git exactly where to push the current HEAD commit, bypassing local name mismatches
-          git push --force origin HEAD:refs/heads/builds
+          git push --force -u origin builds
