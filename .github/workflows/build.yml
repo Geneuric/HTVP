@@ -71,9 +71,14 @@ jobs:
 
       - name: Push Release to Repository
         run: |
-          cd $GITHUB_WORKSPACE/builds
+          # Copy files to the workspace root instead of a 'builds' folder
+          cp -f **/build/*.cs3 $GITHUB_WORKSPACE/
+          cp -f build/plugins.json $GITHUB_WORKSPACE/
+          
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add .
-          git commit --amend -m "Deploy HTVP Build $GITHUB_SHA" || git commit -m "Deploy HTVP Build $GITHUB_SHA"
-          git push --force -u origin builds
+          
+          # Add and commit to the main branch
+          git add HTVP.cs3 plugins.json
+          git commit -m "Deploy HTVP Build $GITHUB_SHA" || exit 0
+          git push origin main
