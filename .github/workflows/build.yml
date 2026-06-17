@@ -5,7 +5,7 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  workflow_dispatch: # Gives you the manual 'Run workflow' button in GitHub
+  workflow_dispatch: 
   push:
     branches:
       - master
@@ -15,7 +15,7 @@ on:
       - '.gitignore'
 
 permissions:
-  contents: write # CRITICAL: Allows the action to push the compiled plugin to your repo
+  contents: write 
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
 
       - name: Checkout Builds Branch
         uses: actions/checkout@v4
-        continue-on-error: true # Prevents crash on a brand new repository
+        continue-on-error: true
         with:
           ref: "builds"
           path: "builds"
@@ -63,10 +63,11 @@ jobs:
       - name: Compile HTVP Plugin
         run: |
           cd $GITHUB_WORKSPACE/src
+          sed -i -e 's/\r$//' gradlew
           chmod +x gradlew
           ./gradlew make makePluginsJson
-          cp **/build/*.cs3 $GITHUB_WORKSPACE/builds/
-          cp build/plugins.json $GITHUB_WORKSPACE/builds/
+          find . -type f -name "*.cs3" -exec cp {} $GITHUB_WORKSPACE/builds/ \;
+          cp build/plugins.json $GITHUB_WORKSPACE/builds/ || true
 
       - name: Push Release to Repository
         run: |
