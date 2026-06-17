@@ -1,0 +1,19 @@
+[
+  {
+    "id": "com.saksham.htvp",
+    "name": "HTVP",
+    "description": "HTVP Low-End Optimized DRM Hindi Extension",
+    "authors": [
+      "Saksham"
+    ],
+    "version": 1,
+    "tvTypes": [
+      "Live"
+    ],
+    "language": "hi",
+    "status": 1,
+    "fileSize": 25843,
+    "fileHash": "sha256-fc70bcebe2c5c60acd0a20c20789aee9d3c827e82db06d4dafc6772f82cb7d4e",
+    "url": "https://raw.githubusercontent.com/Geneuric/HTVP/builds/HTVP.cs3"
+  }
+]
